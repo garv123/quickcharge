@@ -48,10 +48,7 @@ end
 
 
 get '/spaces' do
-  @spaces = user['admin_of'].map do |space|
-    api.get(space['space_link'])
-  end
-  
+  @spaces = user['admin_of'].map{|space| api.get(space['space_link'])}
   erb :space_index
 end
 
@@ -66,17 +63,17 @@ end
 post '/spaces/:space_id/charge/:membership_id' do
   @space = params[:space_id].sub(/space-/, '')
   
-  api_response = api.post("https://#{@space}.cobot.me/api/memberships/#{params[:membership_id]}/charges", {description: params[:description], amount: params[:amount].to_i})
+  api_response = api.post("https://#{@space}.cobot.me/api/memberships/#{params[:membership_id]}/charges", {description: params[:description], amount: params[:amount]})
     
   unless api_response.status == 201
+    status 400
     response = {errors: [], message: "Charge failed."}
     
-    api_response.each do |key, value|
-      response[:errors] << key + ' ' + value
-    end
+    response[:errors] = api_response.map{|key, value| key + ' ' + value}
     
     response.to_json
   else
+    status 201
     {message: "Charged successfully."}.to_json
   end
 end
