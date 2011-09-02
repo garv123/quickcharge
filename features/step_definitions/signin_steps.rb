@@ -9,7 +9,7 @@ When /^an error occurs with OmniAuth login$/ do
 end
 
 Then /^I should be logged in$/ do
-  page.should have_selector("*", :text => /Subdomains/i)
+  page.should have_selector("*", :text => /Select a subdomain/i)
 end
 
 Then /^I should see an error message$/ do
