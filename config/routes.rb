@@ -1,5 +1,15 @@
 Quickcharge::Application.routes.draw do
 
+  resources :sessions, only: [:create, :failure, :destroy]
+  resources :pages, only: [:index, :spaces, :show, :charge]
+
+  root :to => 'pages#index'
+  match '/auth/:provider/callback', :to => 'sessions#create'
+  match '/signout', :to => 'sessions#destroy'
+  match '/auth/failure', :to => 'sessions#failure'
+  match '/spaces', to: 'pages#spaces'
+  match '/spaces/:id', to: 'pages#show', as: :space
+  match '/spaces/:id/charge', to: 'pages#charge', as: :charge
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
