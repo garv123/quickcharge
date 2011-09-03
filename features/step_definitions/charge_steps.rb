@@ -40,7 +40,7 @@ When /^I click Charge$/ do
     :headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth c4c...4d4', 'Content-Length'=>'0', 'User-Agent'=>'Ruby'}).to_return(
     :status => 422, :body => "abc", :headers => {:status => 422})
   
-  stub_request(:post, "https://#{@id}.cobot.me/api/memberships//charges?amount=5&description=lunch").with(
+  stub_request(:post, "https://#{@id}.cobot.me/api/memberships//charges?amount=#{@amount}&description=#{@description}").with(
     :headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth c4c...4d4', 'Content-Length'=>'0', 'User-Agent'=>'Ruby'}).to_return(
     :status => 500, :body => "", :headers => {})
     
