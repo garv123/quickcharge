@@ -28,9 +28,11 @@
     </nav>
   </div>
 
+  <div id="flashmsg">
   <% flash.each do |flash_type, flash_message| %>
     <%= content_tag(:div, flash_message, :class => "flash #{flash_type}") %>
   <% end %>
+  </div>
 
   <div class="main">
     <%= yield %>
