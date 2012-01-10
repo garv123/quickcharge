@@ -14,13 +14,14 @@ class PagesController < ApplicationController
   def show
     @subdomain = params[:id]
     memberships = api.get("https://#{@subdomain}.cobot.me/api/memberships")
-    @members = JSON.parse(memberships.body)
+    @members = JSON.parse(memberships.body).select{|membership|
+      membership['canceled_to'].blank? || Date.parse(membership['canceled_to']) > Date.today}
   end
 
   def charge
     subdomain = params[:id]
     member_id = params[:membership]
-    @charge = api.post("https://#{subdomain}.cobot.me/api/memberships/#{member_id}/charges", 
+    @charge = api.post("https://#{subdomain}.cobot.me/api/memberships/#{member_id}/charges",
                        params: { 'description' => params[:description], 'amount' => params[:amount] })
 
     if @charge.headers['status'] == "422"
@@ -28,7 +29,7 @@ class PagesController < ApplicationController
     elsif @charge.headers['status'] == "201"
       flash[:success] = "Charges successful."
     else
-      flash[:notice] = "Unrecognized server response. You may have forgotten to select a member. 
+      flash[:notice] = "Unrecognized server response. You may have forgotten to select a member.
                         If the problem persits, please contact cobot support."
     end
     redirect_to(space_path(params[:id]))
