@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     @subdomain = params[:id]
     memberships = api.get("https://#{@subdomain}.cobot.me/api/memberships")
     @members = JSON.parse(memberships.body).select{|membership|
-      membership['canceled_to'].blank? || Date.parse(membership['canceled_to']) > Date.today}
+      membership['canceled_to'].blank? || Date.parse(membership['canceled_to']) > Date.today}.sort_by{|m| m['address']['name']}
   end
 
   def charge
