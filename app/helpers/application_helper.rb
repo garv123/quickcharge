@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   def client
     @client ||= OAuth2::Client.new(
       ENV['CLIENT_ID'],
@@ -13,7 +12,6 @@ module ApplicationHelper
 
   def api
     @api ||= OAuth2::AccessToken.new(client, access_token)
-    @api.options[:header_format] = "OAuth %s"
     @api
   end
 

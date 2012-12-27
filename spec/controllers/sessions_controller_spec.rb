@@ -15,7 +15,7 @@ describe SessionsController do
 
     it "creates a session with the list of admin-authorized subdomains" do
       get :create
-      session[:admin_of].should == ["my_subdomain", "test2"]
+      session[:admin_of].should == ["my-subdomain", "test2"]
     end
 
     it "redirects to the spaces page" do
@@ -32,7 +32,7 @@ describe SessionsController do
     end
 
     it "deletes the session[:admin_of]" do
-      session[:admin_of] = ["my_subdomain", "test2"]
+      session[:admin_of] = ["my-subdomain", "test2"]
       get :failure
       session[:admin_of].should be_nil
     end
@@ -51,7 +51,7 @@ describe SessionsController do
     end
 
     it "deletes the session[:admin_of]" do
-      session[:admin_of] = ["my_subdomain", "test2"]
+      session[:admin_of] = ["my-subdomain", "test2"]
       get :destroy
       session[:admin_of].should be_nil
     end
@@ -61,5 +61,5 @@ describe SessionsController do
       response.should redirect_to root_path
     end
   end
-  
+
 end

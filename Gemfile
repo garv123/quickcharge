@@ -1,17 +1,16 @@
 source 'http://rubygems.org'
 
-gem 'rails', '~>3.1.0'
-
+gem 'rails'
 gem 'jquery-rails'
 
-gem 'omniauth', :git => "git://github.com/intridea/omniauth.git", :ref => "d4cc511"
+gem 'omniauth_cobot'
 
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
 end
 
@@ -20,18 +19,16 @@ group :production do
   gem 'pg'
 end
 
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
-group :development, :test do
+group :development do
   gem 'sqlite3'
-  gem 'cucumber-rails'
   gem 'rspec-rails'
-  gem 'webrat'
-  gem 'database_cleaner'
-  gem 'launchy'
 end
 
 group :test do
   gem 'webmock'
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'launchy'
+  gem 'sqlite3'
 end

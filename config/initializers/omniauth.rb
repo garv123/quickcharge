@@ -1,4 +1,3 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :Cobot, ENV['CLIENT_ID'], ENV['CLIENT_SECRET']
+  provider :cobot, ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], scope: 'read write'
 end
-

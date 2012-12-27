@@ -54,7 +54,7 @@ Quickcharge::Application.configure do
           "link"=>"https://co-up.cobot.me/api/memberships/738...b53",
           "space_link"=>"https://www.cobot.me/api/spaces/co-up"}],
         "admin_of"=>[
-          {"space_link"=>"https://www.cobot.me/api/spaces/my_subdomain"},
+          {"space_link"=>"https://www.cobot.me/api/spaces/my-subdomain"},
           {"space_link"=>"https://www.cobot.me/api/spaces/test2"}]
         }
       }

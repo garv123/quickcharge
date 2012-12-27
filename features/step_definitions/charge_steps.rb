@@ -1,7 +1,6 @@
 Given /^I have a space "([^"]*)" with at least one member$/ do |subdomain|
   stub_request(
-    :get, "https://#{subdomain}.cobot.me/api/memberships").with(
-    :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'OAuth c4c...4d4', 'User-Agent'=>'Ruby'}).to_return(
+    :get, "https://#{subdomain}.cobot.me/api/memberships").to_return(
     :status => 200, :body => "[{\"id\": \"1\", \"address\": {\"name\": \"johnny doe\"}}, {\"id\": \"2\", \"address\": {\"name\": \"jane smith\"}}]", :headers => {})
 end
 
@@ -10,8 +9,7 @@ When /^I visit the space for "([^"]*)"$/ do |subdomain|
 end
 
 Then /^I will see a form for submitting charges to "([^"]*)"$/ do |subdomain|
-  page.should have_selector("form", method: "post", 
-                                    action: "/spaces/#{subdomain}/charge")
+  page.should have_css("form[method=post][action='/spaces/#{subdomain}/charge']")
   @id = subdomain
 end
 
@@ -31,19 +29,16 @@ end
 
 When /^I click Charge$/ do
   stub_request(
-    :post, "https://#{@id}.cobot.me/api/memberships/1/charges?amount=#{@amount}&description=#{@description}").with(
-    :headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth c4c...4d4', 'Content-Length'=>'0', 'User-Agent'=>'Ruby'}).to_return(
+    :post, "https://#{@id}.cobot.me/api/memberships/1/charges?amount=#{@amount}&description=#{@description}").to_return(
     :status => 201, :body => "abc", :headers => {:status => 201})
 
   stub_request(
-    :post, "https://#{@id}.cobot.me/api/memberships/1/charges?amount=&description=").with(
-    :headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth c4c...4d4', 'Content-Length'=>'0', 'User-Agent'=>'Ruby'}).to_return(
+    :post, "https://#{@id}.cobot.me/api/memberships/1/charges?amount=&description=").to_return(
     :status => 422, :body => "abc", :headers => {:status => 422})
-  
-  stub_request(:post, "https://#{@id}.cobot.me/api/memberships//charges?amount=#{@amount}&description=#{@description}").with(
-    :headers => {'Accept'=>'*/*', 'Authorization'=>'OAuth c4c...4d4', 'Content-Length'=>'0', 'User-Agent'=>'Ruby'}).to_return(
+
+  stub_request(:post, "https://#{@id}.cobot.me/api/memberships//charges?amount=#{@amount}&description=#{@description}").to_return(
     :status => 500, :body => "", :headers => {})
-    
+
   click_button("Charge")
 end
 
@@ -61,8 +56,7 @@ end
 
 Given /^I have a space "([^"]*)" with no members$/ do |subdomain|
   stub_request(
-    :get, "https://#{subdomain}.cobot.me/api/memberships").with(
-    :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Authorization'=>'OAuth c4c...4d4', 'User-Agent'=>'Ruby'}).to_return(
+    :get, "https://#{subdomain}.cobot.me/api/memberships").to_return(
     :status => 200, :body => "[]", :headers => {})
 end
 
@@ -71,7 +65,7 @@ Then /^I will see a notice that the space has no members$/ do
 end
 
 Then /^the form will not be able to be submitted$/ do
-  page.should have_selector("input", class: "btn", disabled: "disabled")
+  page.should have_css("input.btn[disabled=disabled]")
 end
 
 Then /^I will be returned to the spaces page$/ do

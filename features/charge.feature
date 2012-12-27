@@ -5,11 +5,11 @@ Feature:
 
   Background: logged in
     Given I am logged in
-    And I have a space "my_subdomain" with at least one member
+    And I have a space "my-subdomain" with at least one member
 
   Scenario: successful charge
-    When I visit the space for "my_subdomain"
-    Then I will see a form for submitting charges to "my_subdomain"
+    When I visit the space for "my-subdomain"
+    Then I will see a form for submitting charges to "my-subdomain"
     When I select a member to charge
     And I enter "5" euros as the amount
     And I enter "lunch" as the description
@@ -17,15 +17,15 @@ Feature:
     Then I will see a success message
 
   Scenario: incomplete form (missing amount and/or description)
-    When I visit the space for "my_subdomain"
-    Then I will see a form for submitting charges to "my_subdomain"
+    When I visit the space for "my-subdomain"
+    Then I will see a form for submitting charges to "my-subdomain"
     When I select a member to charge
     And I click Charge
     Then I will see an error message
 
   Scenario: incomplete form (missing member)
-    When I visit the space for "my_subdomain"
-    Then I will see a form for submitting charges to "my_subdomain"
+    When I visit the space for "my-subdomain"
+    Then I will see a form for submitting charges to "my-subdomain"
     When I enter "5" euros as the amount
     And I enter "lunch" as the description
     And I click Charge
