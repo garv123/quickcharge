@@ -40,24 +40,26 @@ Quickcharge::Application.configure do
   OmniAuth.config.test_mode = true
 
   OmniAuth.config.mock_auth[:cobot] = {
-    "provider"=>"cobot", 
-    "uid"=>"janesmith", 
+    "provider"=>"cobot",
+    "uid"=>"janesmith",
     "credentials"=>{"token"=>"c4c...4d4"},
-    "user_info"=>{"name"=>"janesmith", 
-        "email"=>"janesmith@example.com"}, 
+    "user_info"=>{"name"=>"janesmith",
+        "email"=>"janesmith@example.com"},
     "extra"=>{
       "user_hash"=>{
-        "login"=>"janesmith", 
-        "email"=>"janesmith@example.com", 
-        "id"=>"user-janesmith", 
+        "login"=>"janesmith",
+        "email"=>"janesmith@example.com",
+        "id"=>"user-janesmith",
         "memberships"=>[{
           "link"=>"https://co-up.cobot.me/api/memberships/738...b53",
-          "space_link"=>"https://www.cobot.me/api/spaces/co-up"}], 
+          "space_link"=>"https://www.cobot.me/api/spaces/co-up"}],
         "admin_of"=>[
           {"space_link"=>"https://www.cobot.me/api/spaces/my_subdomain"},
           {"space_link"=>"https://www.cobot.me/api/spaces/test2"}]
         }
       }
     }
-  
+
 end
+
+ENV['SECRET_TOKEN'] = '123' * 10

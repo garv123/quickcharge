@@ -25,3 +25,5 @@ Quickcharge::Application.configure do
   # Do not compress assets
   config.assets.compress = false
 end
+
+ENV['SECRET_TOKEN'] = '123' * 10
