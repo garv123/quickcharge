@@ -41,7 +41,8 @@ describe PagesController do
       @auth = request.env["omniauth.auth"]
       session[:token] = @auth['credentials']['token']
       session[:admin_of] = ["my-subdomain", "test2"]
-      stub_request(:get, "https://www.cobot.me/api/user").to_return(status: 200, headers: {}, body: '{"admin_of":[{"space_link": "https://www.cobot.me/api/spaces/co-up"}]}')
+      stub_request(:get, "https://www.cobot.me/api/user").to_return(status: 200,
+        body: {"admin_of" => [{"space_subdomain" => "co-up"}]}.to_json)
     end
 
     describe "GET index" do

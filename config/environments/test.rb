@@ -52,10 +52,10 @@ Quickcharge::Application.configure do
         "id"=>"user-janesmith",
         "memberships"=>[{
           "link"=>"https://co-up.cobot.me/api/memberships/738...b53",
-          "space_link"=>"https://www.cobot.me/api/spaces/co-up"}],
+          "space_subdomain"=>"co-up"}],
         "admin_of"=>[
-          {"space_link"=>"https://www.cobot.me/api/spaces/my-subdomain"},
-          {"space_link"=>"https://www.cobot.me/api/spaces/test2"}]
+          {"space_subdomain"=>"my-subdomain"},
+          {"space_subdomain"=>"test2"}]
         }
       }
     }
